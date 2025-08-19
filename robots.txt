@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://keivr-info-card.onrender.com/sitemap.xml
