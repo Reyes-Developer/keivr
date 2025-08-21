@@ -79,7 +79,7 @@
       border-radius:var(--card-radius);
       border:1px solid var(--glass-border);
       background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      backdrop-filter: blur(12px) saturate(140%);
+      backdrop-filter: blur(3px) saturate(140%);
       box-shadow:0 12px 30px rgba(0,0,0,0.6);
       display:flex;
       flex-direction:column;
@@ -87,13 +87,49 @@
       gap:20px;
     }
 
-    .avatar {
-      width:120px;
-      height:120px;
-      border-radius:50%;
-      border:3px solid var(--accent);
-      object-fit:cover;
-    }
+/* Avatar con borde halo blanco brillante */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 3px; /* grosor del borde */
+  background: transparent;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.6); /* borde base */
+  position: relative;
+  z-index: 1;
+}
+
+/* Efecto brillante */
+.avatar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -4px; /* espacio alrededor del avatar */
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255,255,255,0.9),
+    rgba(255,255,255,0.2),
+    rgba(255,255,255,0.9)
+  );
+  filter: blur(8px);
+  animation: spin 6s linear infinite; /* animación opcional */
+  z-index: 0;
+}
+
+/* Animación lenta */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
     h1 {
       margin:10px 0 0;
@@ -171,6 +207,27 @@
       height:20px;
       stroke:white;
     }
+  
+  /* --- RESPONSIVE --- */
+@media (max-width: 480px) {
+  body { padding:10px; }
+  .card { padding:20px; }
+  .avatar { width:90px; height:90px; }
+  h1 { font-size:1.4rem; }
+  .muted { font-size:0.85rem; }
+  .section-title { font-size:1rem; }
+  .item { padding:10px 12px; gap:8px; font-size:0.9rem; }
+  .btn { padding:12px; font-size:0.9rem; }
+  .translate-fab { bottom:15px; right:15px; }
+  .translate-fab button { width:46px; height:46px; font-size:20px; }
+}
+
+@media (481px <= width <= 768px) {
+  .card { max-width:360px; padding:24px; }
+  .avatar { width:100px; height:100px; }
+  h1 { font-size:1.6rem; }
+  .muted { font-size:0.9rem; }
+}
   </style>
 </head>
 <body>
@@ -178,25 +235,27 @@
 
   <div class="card">
     <!-- FOTO DE PERFIL -->
-    <img src="avatar.jpg" alt="Perfil" class="avatar">
+    <div class="avatar-wrapper">
+  <img src="avatar.jpg" alt="Perfil" class="avatar">
+</div>
     <!-- NOMBRE -->
     <h1>reyes</h1>
-    <div class="muted">@_keivr / Dealer - Reseller - Intermediario</div>
+    <div class="muted">Fast, secure and reliable digital product delivery. Trusted reseller with support and guarantees.</div>
 
     <!-- SERVICIOS -->
     <div class="section">
-      <div class="section-title">Servicios</div>
+      <div class="section-title">Services</div>
       <div class="item"><i data-lucide="package"></i><span>Dealer</span></div>
       <div class="item"><i data-lucide="refresh-ccw"></i><span>Reseller</span></div>
-      <div class="item"><i data-lucide="handshake"></i><span>Intermediario</span></div>
+      <div class="item"><i data-lucide="handshake"></i><span>Intermediary</span></div>
     </div>
 
     <!-- MÉTODOS DE PAGO -->
     <div class="section">
-      <div class="section-title">Métodos de Pago</div>
+      <div class="section-title">Payment Methods</div>
       <div class="item"><i data-lucide="credit-card"></i><span>Zinli</span></div>
       <div class="item"><i data-lucide="bitcoin"></i><span>USDT / Binance</span></div>
-      <div class="item"><i data-lucide="wallet"></i><span>Otras opciones</span></div>
+      <div class="item"><i data-lucide="wallet"></i><span>Other options</span></div>
     </div>
 
 <!-- LINKS -->
@@ -217,7 +276,131 @@
     <i class="fa-brands fa-telegram"></i><span>Telegram</span>
   </a>
 </div>
+<!-- Google Translate oculto -->
+<div id="google_translate_element" style="display:none;"></div>
 
+<!-- Botón flotante -->
+<div class="translate-fab">
+  <button id="openTranslate"><i class="fa-solid fa-globe"></i></button>
+  <div class="translate-menu hidden">
+    <select id="custom_translate_selector">
+      <option value="">Choose language</option>
+      <option value="es">Español</option>
+      <option value="pt">Português</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="it">Italiano</option>
+    </select>
+  </div>
+</div>
+
+<!-- Script Google -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {pageLanguage: 'en', includedLanguages: 'es,pt,en,fr,de,it'},
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+  // toggle menú al hacer click en el botón
+  const fab = document.getElementById("openTranslate");
+  const menu = document.querySelector(".translate-menu");
+
+  fab.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+
+  // Cambiar idioma
+  document.getElementById("custom_translate_selector").addEventListener("change", function() {
+    var lang = this.value;
+    if (lang) {
+      var select = document.querySelector(".goog-te-combo");
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event("change"));
+      }
+    }
+  });
+</script>
+
+<style>
+  .translate-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Botón circular glass */
+  .translate-fab button {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    color: #fff;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+    transition: all 0.25s ease;
+  }
+
+  .translate-fab button:hover {
+    background: rgba(255,255,255,0.18);
+    transform: scale(1.08);
+  }
+
+  /* Menú glass */
+  .translate-menu {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 8px 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+
+    animation: fadeIn 0.25s ease;
+  }
+
+  .translate-menu.hidden {
+    display: none;
+  }
+
+  #custom_translate_selector {
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+  }
+
+  #custom_translate_selector option {
+    color: #000; /* opciones internas */
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(5px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+</style>
+      
   <script>
     // Partículas
     particlesJS('particles-js', {
@@ -241,4 +424,5 @@
     lucide.createIcons();
   </script>
 </body>
-</html>
+  </html>
+  
