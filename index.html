@@ -4,11 +4,11 @@
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width,initial-scale=1" />  
 
-  <!-- Título SEO -->
+  <!-- SEO Title -->
   <title>Reyes - Dealer | Reseller | Intermediary</title>  
   <meta name="google-site-verification" content="HiUqzWBm5xJRXJGukk1c_xzNV_NP__5qNWvukzba8XM" />
 
-  <!-- SEO básico -->
+  <!-- Basic SEO -->
   <meta name="description" content="Dealer - Reseller - Intermediary | Digital services, secure payments and fast contact." />  
   <meta name="keywords" content="Dealer, Reseller, Intermediary, Binance, USDT, Zinli, Digital services, Payments" />  
   <meta name="author" content="reyes" />  
@@ -29,12 +29,9 @@
   <!-- Favicon -->
   <link rel="icon" href="avatar.jpg" type="image/png">  
 
-  <!-- Fuente -->  
+  <!-- Font -->  
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">  
 
-  <!-- Lucide Icons -->  
-  <script src="https://unpkg.com/lucide@latest"></script>  
-    
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   
@@ -44,140 +41,313 @@
   <!-- Particles.js -->  
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>  
 
-  <!-- Tu CSS separado -->
+  <!-- Your separate CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Tu JS separado (define googleTranslateElementInit antes de cargar el script de Google) -->
-  <script src="script.js"></script>
+  <!-- Your separate JS -->
+  <script src="script.js" defer></script>
 
-  <!-- Script Google (callback ya definido en app.js) -->
+  <!-- Google Script (callback already defined in app.js) -->
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
   <div id="particles-js"></div>
 
-  <div class="card">
-    <!-- FOTO DE PERFIL -->
-    <div class="avatar-wrapper">
-      <img src="avatar.jpg" alt="Perfil" class="avatar avatar-glow">
-    </div>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="#home" class="nav-link active">Home</a>
+    <a href="#about" class="nav-link">About Me</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
 
-    <!-- NOMBRE -->
-     <h1>reyes</h1>
-     <div class="muted">Fast, secure and reliable digital product delivery. Trusted reseller with support and guarantees.</div>
+  <div class="container">
+    <!-- HERO SECTION -->
+    <section id="home" class="hero visible">
+      <div class="avatar-wrapper">
+        <img src="avatar.jpg" alt="Profile" class="avatar avatar-glow">
+      </div>
 
-    <!-- SERVICIOS -->
-    <div class="section">
-       <div class="section-title">Services</div>
-       <div class="item"><i data-lucide="package"></i><span>Dealer</span></div>
-       <div class="item"><i data-lucide="refresh-ccw"></i><span>Reseller</span></div>
-       <div class="item"><i data-lucide="handshake"></i><span>Intermediary</span></div>
-   </div>
+      <h1>reyes</h1>
+      <div class="muted">Fast, secure and reliable digital product delivery. Trusted reseller with support and guarantees.</div>
+      
+      <div id="typing-text"></div>
 
-    <!-- MÉTODOS DE PAGO -->
-     <div class="section">
-       <div class="section-title">Payment Methods</div>
-       <div class="item"><i data-lucide="credit-card"></i><span>Zinli</span></div>
-       <div class="item"><i data-lucide="bitcoin"></i><span>USDT / Binance</span></div>
-       <div class="item"><i data-lucide="wallet"></i><span>Other options</span></div>
-    </div>
+      <!-- Trust badges -->
+      <div class="trust-section">
+        <div class="trust-badge"><i class="bi bi-lightning-charge-fill"></i><span>Fast Delivery</span></div>
+        <div class="trust-badge"><i class="bi bi-shield-lock"></i><span>Verified Seller</span></div>
+        <div class="trust-badge"><i class="bi bi-lock-fill"></i><span>Secure Payments</span></div>
+      </div>
 
-    <!-- TRUST / SOCIAL PROOF -->
-   <div class="trust-section">
-     <div class="trust-badge"><i class="bi bi-lightning-charge-fill"></i><span>Fast Delivery</span></div>
-     <div class="trust-badge"><i class="bi bi-shield-lock"></i><span>Verified Seller</span></div>
-     <div class="trust-badge"><i class="bi bi-lock-fill"></i><span>Secure Payments</span></div>
-   </div>
+      <!-- Social links -->
+      <div class="links">
+        <a href="https://wa.me/message/HIUAQYSVIJEVO1" class="btn btn-glass">
+          <i class="bi bi-whatsapp"></i><span>WhatsApp</span>
+        </a>
+        <a href="https://discord.gg/nwVHHUqdH5" class="btn btn-glass">
+          <i class="bi bi-discord"></i><span>Discord</span>
+        </a>
+        <a href="https://www.instagram.com/_keivr?igsh=MXZ2ZDM0MDFtdzl6Ng==" class="btn btn-glass">
+          <i class="bi bi-instagram"></i><span>Instagram</span>
+        </a>
+        <a href="#" class="btn btn-glass">
+          <i class="bi bi-telegram"></i><span>Telegram</span>
+        </a>
+      </div>
+    </section>
 
-    <!-- LINKS -->
-    <div class="links">
-      <a href="https://wa.me/message/HIUAQYSVIJEVO1" class="btn btn-glass">
-        <i class="bi bi-whatsapp"></i><span>WhatsApp</span>
-      </a>
-      <a href="https://discord.gg/nwVHHUqdH5" class="btn btn-glass">
-        <i class="bi bi-discord"></i><span>Discord</span>
-      </a>
-      <a href="https://www.instagram.com/_keivr?igsh=MXZ2ZDM0MDFtdzl6Ng==" class="btn btn-glass">
-        <i class="bi bi-instagram"></i><span>Instagram</span>
-      </a>
-      <a href="#" class="btn btn-glass">
-        <i class="bi bi-telegram"></i><span>Telegram</span>
-      </a>
-    </div>
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>I am a professional specialized in digital services, with experience as a dealer, reseller and intermediary. My goal is to provide fast, secure and reliable solutions for my clients.</p>
+          <p>I work with the highest standards of security and confidentiality, guaranteeing smooth transactions and continuous support.</p>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Satisfied Clients</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Transactions</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">24h</div>
+              <div class="stat-label">Support</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">3+</div>
+              <div class="stat-label">Years of Experience</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skills">
+          <h3>Skills</h3>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Secure Transactions</span>
+              <span>95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Problem Solving</span>
+              <span>90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Customer Service</span>
+              <span>98%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 98%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services">
+      <h2>Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="bi bi-arrow-left-right"></i>
+          </div>
+          <h3 class="service-title">Dealer</h3>
+          <p>Professional intermediation services with the best market rates and secure transactions.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="bi bi-currency-exchange"></i>
+          </div>
+          <h3 class="service-title">Reseller</h3>
+          <p>Resale of digital products with warranty and after-sales support to ensure your satisfaction.</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3 class="service-title">Intermediary</h3>
+          <p>Intermediation service for transactions between parties, guaranteeing security and confidentiality.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Payment Methods</div>
+        <div class="item"><i class="bi bi-credit-card"></i><span>Zinli</span></div>
+        <div class="item"><i class="bi bi-currency-bitcoin"></i><span>USDT / Binance</span></div>
+        <div class="item"><i class="bi bi-wallet2"></i><span>Other options</span></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        
+        <!-- PROJECT 1: DISCORD BOT -->
+        <div class="project-card">
+          <img src="images/discord-bot.jpg" alt="Custom Discord Bot" class="project-img">
+          <div class="project-content">
+            <h3 class="project-title">Discord Bot</h3>
+            <p>Multifunctional bot with moderation system, virtual economy, automatic roles and payment APIs integration.</p>
+            <div class="project-tags">
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">API</span>
+            </div>
+            <a href="#contact" class="btn btn-glass">Invite Bot</a>
+          </div>
+        </div>
+        
+        <!-- PROJECT 2: FREE FIRE PANEL -->
+        <div class="project-card">
+          <img src="images/freefire-panel.jpg" alt="Free Fire Panel" class="project-img">
+          <div class="project-content">
+            <h3 class="project-title">FFH4X VIP Panel</h3>
+            <p>Designed for those looking for aggressive gameplay with advanced features and aggressive style, without worrying about blacklists.</p>
+            <div class="project-tags">
+              <span class="project-tag">iPhone</span>
+              <span class="project-tag">Android</span>
+              <span class="project-tag">No Ban/blacklist</span>
+            </div>
+            <a href="#contact" class="btn btn-glass">Access Panel</a>
+          </div>
+        </div>
+        
+        <!-- PROJECT 3: VPN / FAKE LAG APP -->
+        <div class="project-card">
+          <img src="images/vpn-app.jpg" alt="VPN Fake Lag App" class="project-img">
+          <div class="project-content">
+            <h3 class="project-title">VPN Gaming & Fake Lag</h3>
+            <p>Mobile application for ping optimization, connection protection and advanced network management for competitive gaming.</p>
+            <div class="project-tags">
+              <span class="project-tag">Android</span>
+              <span class="project-tag">Networks</span>
+              <span class="project-tag">Optimization</span>
+            </div>
+            <a href="#contact" class="btn btn-glass">Download App</a>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-container">
+        <form action="https://formspree.io/f/xzzvnjev" method="POST" class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" class="form-input" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-input" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" id="subject" class="form-input" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" class="form-textarea" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="bi bi-envelope"></i>
+            </div>
+            <div>
+              <h3>Email</h3>
+              <p>contact@example.com</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="bi bi-geo-alt"></i>
+            </div>
+            <div>
+              <h3>Location</h3>
+              <p>Remote - Global Availability</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="bi bi-clock"></i>
+            </div>
+            <div>
+              <h3>Schedule</h3>
+              <p>24/7 - Continuous Support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <!-- Google Translate oculto -->
+  <footer>
+    <p>© 2023 reyes. All rights reserved.</p>
+  </footer>
+
+  <!-- Google Translate (hidden) -->
   <div id="google_translate_element" style="display:none;"></div>
 
-  <!-- Botón flotante + Popup -->
+  <!-- Floating button + Popup -->
   <div class="translate-fab">
     <button id="openTranslate"><i class="bi bi-globe"></i></button>
 
     <div class="translate-popup hidden" id="translateMenu">
       <h3>Select Language</h3>
       <ul class="lang-list">
-        <!-- banderas igual que tenías -->
         <li data-lang="es">
-          <span class="flag">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
-              <rect width="20" height="14" fill="#AA151B"/>
-              <rect y="4" width="20" height="6" fill="#F1BF00"/>
-            </svg>
-          </span>
+          <span class="flag">🇪🇸</span>
           Español
         </li>
         <li data-lang="pt">
-          <span class="flag">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
-              <rect width="20" height="14" fill="#009739"/>
-              <polygon points="10,2 18,7 10,12 2,7" fill="#FFCC29"/>
-              <circle cx="10" cy="7" r="3" fill="#002776"/>
-            </svg>
-          </span>
+          <span class="flag">🇵🇹</span>
           Português
         </li>
         <li data-lang="en">
-          <span class="flag">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
-              <rect width="20" height="14" fill="#012169"/>
-              <path d="M0,0 L20,14 M20,0 L0,14" stroke="#FFF" stroke-width="3"/>
-              <path d="M0,0 L20,14 M20,0 L0,14" stroke="#C8102E" stroke-width="1.5"/>
-              <rect x="8" width="4" height="14" fill="#FFF"/>
-              <rect y="5" width="20" height="4" fill="#FFF"/>
-              <rect x="9" width="2" height="14" fill="#C8102E"/>
-              <rect y="6" width="20" height="2" fill="#C8102E"/>
-            </svg>
-          </span>
+          <span class="flag">🇺🇸</span>
           English
         </li>
         <li data-lang="fr">
-          <span class="flag">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
-              <rect width="7" height="14" fill="#0055A4"/>
-              <rect x="7" width="6" height="14" fill="#FFF"/>
-              <rect x="13" width="7" height="14" fill="#EF4135"/>
-            </svg>
-          </span>
+          <span class="flag">🇫🇷</span>
           Français
         </li>
         <li data-lang="de">
-          <span class="flag">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
-              <rect width="20" height="14" fill="#000"/>
-              <rect y="5" width="20" height="4" fill="#DD0000"/>
-              <rect y="9" width="20" height="5" fill="#FFCE00"/>
-            </svg>
-          </span>
+          <span class="flag">🇩🇪</span>
           Deutsch
         </li>
         <li data-lang="it">
-          <span class="flag">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
-              <rect width="7" height="14" fill="#009246"/>
-              <rect x="7" width="6" height="14" fill="#FFF"/>
-              <rect x="13" width="7" height="14" fill="#CE2B37"/>
-            </svg>
-          </span>
+          <span class="flag">🇮🇹</span>
           Italiano
         </li>
       </ul>
