@@ -23,7 +23,7 @@ body {
   min-height: 100vh;
   background: 
     linear-gradient(rgba(15, 10, 35, 0.85), rgba(25, 15, 50, 0.9)),
-    url('https://i.ibb.co/CKMDr1Ct/fondo1.jpg');
+    url('https://imgur.com/a/JiRo52J');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -42,7 +42,7 @@ body {
 }
 
 /* ==================== */
-/* NAVEGACIÓN MEJORADA */
+/* NAVEGACIÓN MEJORADA Y RESPONSIVE */
 /* ==================== */
 .navbar {
   position: fixed;
@@ -56,14 +56,20 @@ body {
   padding: 10px 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
-  gap: 5px;
+  gap: 3px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease;
+  max-width: 90%;
 }
 
 .navbar:hover {
   background: rgba(11, 15, 20, 0.85);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.nav-links {
+  display: flex;
+  gap: 3px;
 }
 
 .nav-link {
@@ -76,6 +82,7 @@ body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .nav-link::before {
@@ -129,31 +136,105 @@ body {
   to { bottom: -8px; }
 }
 
+/* Botón de menú hamburguesa */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 4px 10px rgba(10, 132, 255, 0.3);
+}
+
+.menu-toggle span {
+  width: 20px;
+  height: 2px;
+  background: white;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
 /* Menú responsive */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .navbar {
-    padding: 8px 15px;
-    gap: 3px;
-    top: 15px;
+    padding: 10px 15px;
+    width: auto;
+    justify-content: space-between;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: rgba(11, 15, 20, 0.95);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 999;
+  }
+  
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
   
   .nav-link {
-    font-size: 0.75rem;
-    padding: 8px 15px;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 12px;
+  }
+  
+  .menu-toggle {
+    display: flex;
+  }
+  
+  /* Animación hamburguesa a X */
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }
 
 @media (max-width: 600px) {
   .navbar {
     width: 90%;
-    justify-content: center;
-    flex-wrap: wrap;
+    top: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar {
+    padding: 8px 12px;
   }
   
-  .nav-link {
-    font-size: 0.7rem;
-    padding: 6px 12px;
-    margin: 2px;
+  .menu-toggle {
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -724,45 +805,73 @@ footer {
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 10px 15px;
-    gap: 10px;
-  }
-  
-  .nav-link {
-    font-size: 0.8rem;
-    padding: 6px 12px;
-  }
-  
-  section {
-    padding: 20px;
-  }
-  
-  .hero {
-    padding: 30px 15px;
-  }
-  
-  .avatar {
-    width: 120px;
-    height: 120px;
-  }
-  
-  h1 {
-    font-size: 1.8rem;
-  }
-  
-  .services-grid,
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .about-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Mejoras para el formulario */
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2);
+}
+
+/* Validación profesional - SUAVE */
+.form-input:invalid:not(:focus):not(:placeholder-shown),
+.form-textarea:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.05);
+}
+
+.form-input:valid:not(:focus):not(:placeholder-shown),
+.form-textarea:valid:not(:focus):not(:placeholder-shown) {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.05);
+}
+
+/* Quitar el feo outline rojo del navegador */
+.form-input:invalid, .form-textarea:invalid {
+  box-shadow: none;
+}
+
+/* Loader para el botón */
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ==================== */
+/* VALIDACIÓN PERSONALIZADA */
+/* ==================== */
+.form-group {
+  position: relative;
+}
+
+/* Quitar TODA la validación nativa del navegador */
+.form-input:invalid, 
+.form-textarea:invalid {
+  box-shadow: none !important;
+  border-color: var(--glass-border) !important;
+}
+
+/* Validación solo cuando el usuario interactúa */
+.form-input.validation-check:invalid,
+.form-textarea.validation-check:invalid {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.05);
+}
+
+.form-input.validation-check:valid,
+.form-textarea.validation-check:valid {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.05);
+}
+
+/* Mensajes de error personalizados */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  display: none;
+}
+
+.form-input.validation-check:invalid + .error-message,
+.form-textarea.validation-check:invalid + .error-message {
+  display: block;
 }

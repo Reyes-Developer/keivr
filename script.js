@@ -100,39 +100,47 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener("scroll", checkScroll);
   window.addEventListener("load", checkScroll);
 
-// Navegación suave MEJORADA
-navLinks.forEach(link => {
-  link.addEventListener("click", function(e) {
-    e.preventDefault();
-    const targetId = this.getAttribute("href").substring(1);
-    const targetSection = document.getElementById(targetId);
-    
-    // Remover activo de todos los links
-    navLinks.forEach(l => l.classList.remove("active"));
-    
-    // Agregar activo al link clickeado
-    this.classList.add("active");
-    
-    if (targetSection) {
-      window.scrollTo({
-        top: targetSection.offsetTop - 80,
-        behavior: "smooth"
-      });
+  // Navegación suave MEJORADA
+  navLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+      
+      // Remover activo de todos los links
+      navLinks.forEach(l => l.classList.remove("active"));
+      
+      // Agregar activo al link clickeado
+      this.classList.add("active");
+      
+      // Cerrar menú móvil si está abierto
+      const navLinksContainer = document.getElementById('navLinks');
+      const menuToggle = document.getElementById('menuToggle');
+      if (navLinksContainer.classList.contains('active')) {
+        menuToggle.classList.remove('active');
+        navLinksContainer.classList.remove('active');
+      }
+      
+      if (targetSection) {
+        window.scrollTo({
+          top: targetSection.offsetTop - 80,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+
+  // Efecto de desvanecimiento al hacer scroll
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+      navbar.style.background = 'rgba(11, 15, 20, 0.95)';
+      navbar.style.backdropFilter = 'blur(20px) saturate(180%)';
+    } else {
+      navbar.style.background = 'rgba(11, 15, 20, 0.7)';
+      navbar.style.backdropFilter = 'blur(15px) saturate(180%)';
     }
   });
-});
-
-// Efecto de desvanecimiento al hacer scroll
-window.addEventListener('scroll', () => {
-  const navbar = document.querySelector('.navbar');
-  if (window.scrollY > 100) {
-    navbar.style.background = 'rgba(11, 15, 20, 0.95)';
-    navbar.style.backdropFilter = 'blur(20px) saturate(180%)';
-  } else {
-    navbar.style.background = 'rgba(11, 15, 20, 0.7)';
-    navbar.style.backdropFilter = 'blur(15px) saturate(180%)';
-  }
-});
 
   // Traductor
   const fab = document.getElementById("openTranslate");
@@ -165,15 +173,145 @@ window.addEventListener('scroll', () => {
     });
   });
 
-  // Formulario de contacto
-  const contactForm = document.getElementById("contactForm");
-  if (contactForm) {
-    contactForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("¡Gracias por tu mensaje! Te responderé pronto.");
-      contactForm.reset();
+  // Formulario de contacto con Formspree - MEJORADO
+const contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  // Activar validación cuando el usuario escribe
+  const inputs = contactForm.querySelectorAll('.form-input, .form-textarea');
+  inputs.forEach(input => {
+    input.addEventListener('blur', function() {
+      this.classList.add('validation-check');
     });
+    
+    input.addEventListener('input', function() {
+      if (this.classList.contains('validation-check')) {
+        // Re-validar en cada tecla después de la primera validación
+        this.classList.add('validation-check');
+      }
+    });
+  });
+  
+  contactForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    // Forzar validación visual de todos los campos
+    inputs.forEach(input => {
+      input.classList.add('validation-check');
+    });
+    
+    // Verificar si hay campos inválidos
+    const invalidInputs = contactForm.querySelectorAll('.form-input.validation-check:invalid, .form-textarea.validation-check:invalid');
+    if (invalidInputs.length > 0) {
+      invalidInputs[0].focus(); // Enfocar el primer campo inválido
+      return; // Detener el envío
+    }
+    
+    // Mostrar loader
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="bi bi-arrow-repeat spin"></i><span>Sending...</span>';
+    submitBtn.disabled = true;
+    
+    try {
+      const formData = new FormData(this);
+      
+      const response = await fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Mensaje de éxito
+        showNotification('✅ Message sent successfully! I will contact you soon.', 'success');
+        contactForm.reset();
+        // Remover validación visual después de enviar
+        inputs.forEach(input => {
+          input.classList.remove('validation-check');
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      // Mensaje de error
+      showNotification('❌ Error sending message. Try again.', 'error');
+    } finally {
+      // Restaurar botón
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+// Función para mostrar notificación
+function showNotification(message, type) {
+  // Crear elemento de notificación
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <div class="notification-content">
+      <i class="bi ${type === 'success' ? 'bi-check-circle' : 'bi-exclamation-circle'}"></i>
+      <span>${message}</span>
+    </div>
+  `;
+  
+  // Estilos para la notificación
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? 'rgba(39, 174, 96, 0.9)' : 'rgba(235, 87, 87, 0.9)'};
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    z-index: 10000;
+    animation: slideIn 0.3s ease;
+    max-width: 300px;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Remover después de 4 segundos
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => notification.remove(), 300);
+  }, 4000);
+}
+
+// Añadir estilos para la animación de spin y notificación
+const style = document.createElement('style');
+style.textContent = `
+  .spin {
+    animation: spin 1s linear infinite;
   }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+  
+  .notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+`;
+document.head.appendChild(style);
 
   // Tilt 3D para cards
   document.querySelectorAll(".service-card, .project-card").forEach(card => {
@@ -204,5 +342,34 @@ window.addEventListener('scroll', () => {
         ? '0 0 20px rgba(255, 255, 255, 0.35)' 
         : '0 0 40px rgba(255, 255, 255, 0.6)';
     }, 1500);
+  }
+
+  // Menú hamburguesa para móviles
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinksContainer = document.getElementById('navLinks');
+  
+  if (menuToggle && navLinksContainer) {
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinksContainer.classList.toggle('active');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    navLinksContainer.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinksContainer.classList.remove('active');
+      });
+    });
+    
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      if (navLinksContainer.classList.contains('active') && 
+          !navLinksContainer.contains(e.target) && 
+          !menuToggle.contains(e.target)) {
+        menuToggle.classList.remove('active');
+        navLinksContainer.classList.remove('active');
+      }
+    });
   }
 });
