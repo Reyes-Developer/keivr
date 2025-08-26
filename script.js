@@ -373,3 +373,99 @@ document.head.appendChild(style);
     });
   }
 });
+
+// ===== SISTEMA DE OFERTAS - AGREGAR ESTO =====
+function cargarOfertasDesdePanel() {
+    console.log('🔄 Cargando ofertas desde el panel...');
+    
+    try {
+        const ofertasGuardadas = localStorage.getItem('keivr_offers');
+        const ofertas = ofertasGuardadas ? JSON.parse(ofertasGuardadas) : [];
+        
+        console.log(`📊 ${ofertas.length} ofertas encontradas`);
+        
+        if (ofertas.length === 0) {
+            mostrarOfertasPorDefecto();
+            return;
+        }
+        
+        mostrarOfertas(ofertas);
+        
+    } catch (error) {
+        console.error('❌ Error al cargar ofertas:', error);
+        mostrarOfertasPorDefecto();
+    }
+}
+
+function mostrarOfertas(ofertas) {
+    const contenedorOfertas = document.getElementById('ofertas-container');
+    if (!contenedorOfertas) return;
+    
+    contenedorOfertas.innerHTML = '';
+    
+    ofertas.forEach((oferta, index) => {
+        const ofertaHTML = crearHTMLOferta(oferta, index);
+        contenedorOfertas.innerHTML += ofertaHTML;
+    });
+}
+
+function crearHTMLOferta(oferta, index) {
+    const iconos = { new: '🆕', offer: '💰', update: '🔄' };
+    const clases = { new: 'badge-new', offer: 'badge-offer', update: 'badge-update' };
+    const textos = { new: 'Nuevo', offer: 'Oferta', update: 'Actualización' };
+    
+    return `
+        <div class="offer-card">
+            <div class="offer-image">
+                <img src="${oferta.image}" alt="${oferta.title}" loading="lazy">
+                <span class="offer-badge ${clases[oferta.type]}">${iconos[oferta.type]} ${textos[oferta.type]}</span>
+            </div>
+            <div class="offer-content">
+                <h3>${oferta.title}</h3>
+                <p>${oferta.description}</p>
+                <div class="offer-footer">
+                    <span class="offer-date">${formatearFecha(oferta.date)}</span>
+                    <button class="btn-ver-mas" onclick="window.location.href='#contact'">Ver más</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function mostrarOfertasPorDefecto() {
+    const ofertasPorDefecto = [
+        {
+            title: "Servicios Profesionales",
+            description: "Ofrezco servicios de dealer, reseller e intermediación con los más altos estándares de seguridad.",
+            image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            type: "new",
+            date: new Date().toISOString().split('T')[0]
+        },
+        {
+            title: "Descuento Especial",
+            description: "Aprovecha tarifas preferenciales en todos mis servicios durante este mes.",
+            image: "https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            type: "offer",
+            date: new Date().toISOString().split('T')[0]
+        }
+    ];
+    
+    mostrarOfertas(ofertasPorDefecto);
+}
+
+function formatearFecha(fechaString) {
+    const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(fechaString).toLocaleDateString('es-ES', opciones);
+}
+
+// Cargar cuando la página esté lista
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(cargarOfertasDesdePanel, 500);
+});
+
+// Recargar si se vuelve a la página
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        cargarOfertasDesdePanel();
+    }
+});
